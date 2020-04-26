@@ -12,7 +12,7 @@ using namespace std;
 int main() {
 
 
-	cout << "\nBienvenue dans le : " << endl;
+	cout << "\nBienvenue dans le jeu : " << endl;
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
     cout << endl << " ************************************************************************ " << endl;

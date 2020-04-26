@@ -12,8 +12,7 @@ public:
 
 	void afficherPlateau( int , int);
 
-	void setColone();
-	void getColone();
+	
 private:
 
 	int largeur[7];
