@@ -12,7 +12,7 @@ using namespace std;
 int main() {
 
 
-	cout << "\nBienvenue dans le jeu : " << endl;
+    cout << "\nBienvenue dans le jeu : " << endl;
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 6);
     cout << endl << " ************************************************************************ " << endl;
@@ -34,9 +34,9 @@ int main() {
     cout << " ************************************************************************ " << endl;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 7);
 
-	jeu* jeux = new jeu;
-	jeux->afficherMenu();
-	
-	jeux->partie();
+    jeu* jeux = new jeu;
+    jeux->afficherMenu();
 
-	}
+    jeux->partie();
+
+}

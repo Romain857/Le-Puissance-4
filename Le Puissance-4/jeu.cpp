@@ -150,7 +150,7 @@ void jeu::partie() {
          else {
              cout << endl << "Je place mon jeton dans la colonne " << c << endl;*/
 
-        system("pause");
+        //system("pause");
 
         if (j == 1) {                                                                                     //boucle
             j--;
@@ -159,6 +159,7 @@ void jeu::partie() {
             j++;
         }
         cases++;
+
     }
 
 }
@@ -186,7 +187,7 @@ void jeu::choixJeton(int choix , int tab[7][6], int j, string tabJoueur[2], int 
         cout << endl << "Je place mon jeton dans la colone : ";                                                             
         cin >> choix;
 
-        if (choix > 7) {
+        if (choix < 1 || choix > 7) {
             cout << endl << "La colone saisie n'est pas correcte" << endl << "Choisi une autre colone valide" << endl;
             goto retourne;
         }
@@ -388,19 +389,19 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g, str
    
 }
 
-void jeu::victoire(string tabJoueur[2], int g) {
+void jeu::victoire(string tabJoueur[2], int g) {                                                                //Vainqueur
 
     switch (g)
     {
 
     case 0: cout << endl << "Bravo ! Tu as gagne " << tabJoueur[0] << endl;
-        exit(EXIT_FAILURE);
         system("pause");
+        exit(EXIT_FAILURE);
         break;
 
     case 1: cout << endl << "Bravo ! Tu as gagne " << tabJoueur[1] << endl;
-        exit(EXIT_FAILURE);
         system("pause");
+        exit(EXIT_FAILURE);
         break;
     }
     
