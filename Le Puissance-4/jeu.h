@@ -11,14 +11,15 @@ public:
 	jeu();
 	~jeu();
 
-	void partie(/*int, int*/);
+	void partie();
 	void afficherMenu();
 	//void deroulement();
 	void afficherJeu(int tab[7][6], int, int);
 	//bool gagne(char, int, int, int, int, char tab[7][6]);
 	//void initialiserJeu(int i, int j, int, int, int tab[7][6]);
 	void choixJeton(int, int tab[7][6], int, string tabJoueur[2], int);
-	void checkVictoire(int, int, int tab[7][6], int, int);
+	void checkVictoire(int, int, int tab[7][6], int, int, string tabJoueur[2]);
+	void victoire(string tabJoueur[2], int);
 
 private:
 	int choix;         

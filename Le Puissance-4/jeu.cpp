@@ -135,19 +135,20 @@ void jeu::afficherJeu(int tab[7][6], int hauteur, int largeur)
 }
 
 
-void jeu::partie(/*int hauteur, int largeur*/){
+void jeu::partie() {
     string tabJoueur[2];
     int g = -1, cases = 0;
     int l = largeur;
     int i;
     int j;
     int tab[7][6];
-    bool place = false;//pas de gagnant pour l'instant
+    bool place = false;     //pas de gagnant pour l'instant
+
     system("cls");
 
-    cout << "Voulez vous bien jouer au mode deux joueurs ? oui (0) ou non (1)" << endl;
+    //cout << "Voulez vous bien jouer au mode deux joueurs ? oui (0) ou non (1)" << endl;
 
-                                                                                                                  //assigne un nom aux deux joueurs dans le tableau
+    //assigne un nom aux deux joueurs dans le tableau
     cout << "Quel est le nom du premier joueur ?" << endl;
     cin >> tabJoueur[0];
     cout << endl << endl << "Quel est le nom du second joueur ?" << endl;
@@ -157,7 +158,7 @@ void jeu::partie(/*int hauteur, int largeur*/){
     srand(time(NULL));
     //j = 0;
     j = rand() % 2;
-                                                                                                            // random joueur qui débute
+    // random joueur qui débute
     if (j == 0)
         cout << "C'est " << tabJoueur[0] << " qui debute" << endl;
     else
@@ -168,72 +169,39 @@ void jeu::partie(/*int hauteur, int largeur*/){
 
     system("pause");
 
-    
-   
+
+
     while (g == -1) {
 
         afficherJeu(tab, largeur, hauteur);
-                                                                                                          //assigne un jeton au joueur dans le tour
-        
+        //assigne un jeton au joueur dans le tour
+
         choixJeton(c, tab, j, tabJoueur, g);
 
 
+        //cout << " J = a : " << j << endl;
+         //cout << "cases : " << cases << endl;
 
-            /*do {              
-                
-                while (place != true) {
-                    if (i == -1 || choix < 0 || choix > 6) {
-                        cout << "entrez un autre numero\n";
-                        cin >> choix;
-                        i = hauteur;
-                    }
-                    if (tab[choix][i] != ' ')
-                        i--;
-                    else {
-                        tab[choix][i] = c;
-                        place = true;
-                    }
-                }*/
+         /*if (c > 7) {
+             cout << endl << "Veuillez choisir un colone valide" << endl;
+             cin >> c;
+         }
+         else {
+             cout << endl << "Je place mon jeton dans la colonne " << c << endl;*/
 
-                /*if (nombreJetons[choix] > 5)
-                {
-                    cout << "Pas la place" << endl;
-                }
-            } while (nombreJetons[c] > 5);*/
-        
-        
-        cout << " J = a : " << j << endl;
-        cout << "cases : " << cases << endl;
-        
-        /*if (c > 7) {
-            cout << endl << "Veuillez choisir un colone valide" << endl;
-            cin >> c;
+        system("pause");
+
+        if (j == 1) {
+            j--;
         }
         else {
-            cout << endl << "Je place mon jeton dans la colonne " << c << endl;*/
-
-            system("pause");
-
-            if (j == 1) {
-                j--;
-            }
-            else {
-                j++;
-            }
-            cases++;
-       }
-    
-
-    switch (g) {                                                                                     // Le vainqueur est ...
-    
-    case -1: cout << "Partie nulle";
-
-    case 0: cout << endl << "Bravo tu as gagné " << tabJoueur[0] << endl;
-    
-    case 1: cout << endl << "Bravo tu as gagné " << tabJoueur[1] << endl;
+            j++;
+        }
+        cases++;
     }
-    
+
 }
+
 
 void jeu::choixJeton(int choix , int tab[7][6], int j, string tabJoueur[2], int g){
 
@@ -267,7 +235,7 @@ void jeu::choixJeton(int choix , int tab[7][6], int j, string tabJoueur[2], int 
 
 		}
             tab[choix-1][hauteur] = 1;
-            checkVictoire(choix -1, hauteur, tab, j, g);
+            checkVictoire(choix -1, hauteur, tab, j, g, tabJoueur);
 
     }
 
@@ -280,7 +248,7 @@ void jeu::choixJeton(int choix , int tab[7][6], int j, string tabJoueur[2], int 
                 }
 		}
          tab[choix-1][hauteur] = 0;
-         checkVictoire(choix -1, hauteur, tab, j, g);
+         checkVictoire(choix -1, hauteur, tab, j, g, tabJoueur);
     }
 	
    
@@ -288,23 +256,25 @@ void jeu::choixJeton(int choix , int tab[7][6], int j, string tabJoueur[2], int 
 
 }
 
-void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
+void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g, string tabJoueur[2])
 {
-    int verifLarge = 0 ;
-    int verifHauteur = 0;
+    int verifLarge = 1 ;
+    int verifHauteur = 1;
+    
     if (j == 1){   
+
     /*int test = tab[verifLarge][verifHauteur];
     int test2 = tab[choix][hauteur];
     cout << "le test 1 "<< test<< " le test 2 "<< test2 << endl;*/
 
         while(tab[choix+verifLarge][hauteur] == 1){
             verifLarge ++;
-            cout<< verifLarge<< endl;                                                                //horizontal 0
+            cout<< verifLarge<< endl;                                                                //horizontal O
             if(verifLarge == 4 ){
                 cout << "ca marche YOUPI"; 
                 g = 1; 
+                victoire(tabJoueur, g);
 		    }
-
 	    }
             while(tab[choix-verifLarge][hauteur] == 1){
             verifLarge ++;
@@ -312,26 +282,29 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
             if(verifLarge == 4 ){
                 cout << "ca marche YOUPI";  
                 g = 1;
+                victoire(tabJoueur, g);
 		    }
 
 	    }
-            while(tab[choix][hauteur-verifHauteur] == 1){
+            while(tab[choix][hauteur-verifHauteur] == 1){                                              //Vertical O
 
             verifHauteur ++;
             cout<< verifLarge<< endl;
             if(verifHauteur == 4 ){
                 cout << "ca marche YOUPI";  
                 g = 1;
+                victoire(tabJoueur, g);
 		    }
 	    }
-            while(tab[choix+verifLarge][hauteur+verifHauteur] == 1){
+            while(tab[choix+verifLarge][hauteur+verifHauteur] == 1){                                    //Diagonales O
 
             verifHauteur ++;
             verifLarge ++;
             cout<< verifLarge<< endl;
-            if(verifHauteur == 4 && verifLarge ==4){
+            if(verifHauteur == 4 && verifLarge == 4){
                 cout << "ca marche YOUPI";  
                 g = 1;
+                victoire(tabJoueur, g);
 		    }
 	    }
             while(tab[choix-verifLarge][hauteur+verifHauteur] == 1){
@@ -342,6 +315,7 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
             if(verifHauteur == 4 && verifLarge ==4){
                 cout << "ca marche YOUPI"; 
                  g = 1;
+                 victoire(tabJoueur, g);
 		    }
 	    }
             while(tab[choix+verifLarge][hauteur-verifHauteur] == 1){
@@ -352,6 +326,7 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
             if(verifHauteur == 4 && verifLarge ==4){
                 cout << "ca marche YOUPI";  
                 g = 1;
+                victoire(tabJoueur, g);
 		    }
 	    }
             while(tab[choix-verifLarge][hauteur-verifHauteur] == 1){
@@ -362,6 +337,7 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
             if(verifHauteur == 4 && verifLarge ==4){
                 cout << "ca marche YOUPI";  
                 g = 1;
+                victoire(tabJoueur, g);
 		    }
 	    }
 
@@ -371,10 +347,11 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
        while(tab[choix+verifLarge][hauteur] == 0){
 
         verifLarge ++;
-        cout<< verifLarge<< endl;                                                                //horizontal 0
+        cout<< verifLarge<< endl;                                                                //Horizontal X
         if(verifLarge == 4 ){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 
 	}
@@ -385,19 +362,21 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
         if(verifLarge == 4 ){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 
 	}
-        while(tab[choix][hauteur-verifHauteur] == 0){
+        while(tab[choix][hauteur-verifHauteur] == 0){                                            // Vertical X
 
         verifHauteur ++;
         cout<< verifLarge<< endl;
         if(verifHauteur == 4 ){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 	}
-        while(tab[choix+verifLarge][hauteur+verifHauteur] == 0){
+        while(tab[choix+verifLarge][hauteur+verifHauteur] == 0){                                  //Diagonales X
 
         verifHauteur ++;
         verifLarge ++;
@@ -405,6 +384,7 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
         if(verifHauteur == 4 && verifLarge ==4){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 	}
         while(tab[choix-verifLarge][hauteur+verifHauteur] == 0){
@@ -415,6 +395,7 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
         if(verifHauteur == 4 && verifLarge ==4){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 	}
         while(tab[choix+verifLarge][hauteur-verifHauteur] == 0){
@@ -425,6 +406,7 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
         if(verifHauteur == 4 && verifLarge ==4){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 	}
         while(tab[choix-verifLarge][hauteur-verifHauteur] == 0){
@@ -435,12 +417,29 @@ void jeu::checkVictoire(int choix, int hauteur, int tab[7][6], int j, int g)
         if(verifHauteur == 4 && verifLarge ==4){
             cout << "ca marche YOUPI";  
             g = 0;
+            victoire(tabJoueur, g);
 		}
 	}
 
    }
 
    
+}
+
+void jeu::victoire(string tabJoueur[2], int g) {
+
+    switch (g)
+    {
+
+    case 0: cout << endl << "Bravo ! Tu as gagne " << tabJoueur[0] << endl;
+        exit(EXIT_FAILURE);
+        break;
+
+    case 1: cout << endl << "Bravo ! Tu as gagne " << tabJoueur[1] << endl;
+        exit(EXIT_FAILURE);
+        break;
+    }
+    system("pause");
 }
 
 

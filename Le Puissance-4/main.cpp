@@ -39,8 +39,4 @@ int main() {
 	
 	jeux->partie();
 
-	/*plateau* Plateau = new plateau;
-
-	Plateau->afficherJeu(tab[7][6]);*/
-
 	}
