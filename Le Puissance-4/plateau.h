@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <vector>
+
 
 using namespace std;
 
@@ -10,7 +10,7 @@ public:
 	plateau();
 	~plateau();
 
-	//void afficherJeu(int tab[7][6]);
+	void afficherPlateau( int , int);
 
 	void setColone();
 	void getColone();
