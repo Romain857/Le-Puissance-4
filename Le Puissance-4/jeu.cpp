@@ -4,14 +4,21 @@
 #include <time.h>
 #include "jeu.h"
 #include "jeton.h"
+#include "plateau.h"
 
 
 using namespace std;
 
-jeu::jeu() {
+jeu::jeu(){
 
 }
+/*
+jeu::largeur(){
 
+}
+jeu::hauteur() {
+
+}*/
 
 void jeu::afficherMenu() {
 
@@ -60,27 +67,91 @@ void jeu::afficherMenu() {
 
     }
 }
+/*
+void jeu::initialiserJeu(int i, int j, int const hauteur = 6, int const largeur = 7) {
 
-void jeu::partie()
+    for (i = 0; i < largeur; i++) {
+        for (j = 0; j < hauteur; j++) {
+            tab[j][i] = ' ';
+        }
+    }
+}*/
+
+
+void jeu::afficherJeu(char tab[7][6], int j)
 {
-    string tabJoueur[2];
     
+    system("cls");
+    cout << endl << endl << endl;
+    
+    for (int hauteur = 6; hauteur >= 0; hauteur--)
+    {
+        cout << "          | ";
+        for (int largeur = 0; largeur < 7; largeur++)
+        {
+            if (tab[j][i] != 0 && tab[j][i] != 1)
+                cout << "  ";
+
+            if (tab[j][i] == 0)
+                cout << "X ";
+
+            if (tab[j][i] == 1)
+                cout << "O ";
+
+            //cout << " ";
+        }
+        cout << "|" << endl << "          |---------------|" << endl;
+    }
+    cout << "          | 1 2 3 4 5 6 7 |" << endl;
+    cout << "           ______________" << endl << endl;
+
+    /*
+    for (int hauteur = 6; hauteur >= 0; hauteur--)
+    {
+        cout << "          | ";
+        for (int largeur = 0; largeur < 7; largeur++)
+        {
+            if (tab[largeur][hauteur] != 0 && tab[largeur][hauteur] != 1)
+                cout << "  ";
+
+            if (tab[largeur][hauteur] == 0)
+                cout << "X";
+
+            if (tab[largeur][hauteur] == 1)
+                cout << "O";
+
+            //cout << " ";
+        }
+        cout << endl << "          |---------------|" << endl;
+    }
+    cout << "          | 1 2 3 4 5 6 7 |" << endl;
+    cout << "           _______________" << endl << endl;*/
+}
+
+
+void jeu::partie(){
+    string tabJoueur[2];
+    int g = -1, cases = 0;
+    int l = ligne;
+    int i;
     int j;
+    char tab[7][6];
+    bool place = false;//pas de gagnant pour l'instant
     system("cls");
 
     cout << "Voulez vous bien jouer au mode deux joueurs ? oui (0) ou non (1)" << endl;
-    cin >> j;
-    
-        cout << "Quel est le nom du premier joueur ?" << endl;
-        cin >> tabJoueur[0];
-        cout << endl << endl << "Quel est le nom du second joueur ?" << endl;
-        cin >> tabJoueur[1];
-        system("cls");
+
+
+    cout << "Quel est le nom du premier joueur ?" << endl;
+    cin >> tabJoueur[0];
+    cout << endl << endl << "Quel est le nom du second joueur ?" << endl;
+    cin >> tabJoueur[1];
+    system("cls");
 
     srand(time(NULL));
-
+    //j = 0;
     j = rand() % 2;
-    
+
     if (j == 0)
         cout << "C'est " << tabJoueur[0] << " qui debute" << endl;
     else
@@ -91,20 +162,111 @@ void jeu::partie()
 
     system("pause");
 
-    if (j == 0)
-    {
-        cout << endl << "C'est ton tour " << tabJoueur[j] << " ! " << endl << "Dans quel colonne veux-tu placer ton jeton?(1 a 7)" << endl << "Tes jetons sont les ";
-        if (j == 0)
-            cout << " X" << endl;
-        else
-            cout << " O" << endl;
+    
+   
+    while (g == -1) {
+
+
+        afficherJeu(tab, j);
+
+        if (j == 0) {
+            cout << endl << "C'est ton tour " << tabJoueur[0] << " ! " << endl << "Dans quel colonne veux-tu placer ton jeton?(1 a 7)" << endl << "Tes jetons sont les ";
+            if (j == 0) {
+                cout << " X" << endl;
+            }
+            else {
+                cout << " O" << endl;
+            }
+        }else if (j == 1) {
+            cout << endl << "C'est ton tour " << tabJoueur[1] << " ! " << endl << "Dans quel colonne veux-tu placer ton jeton?(1 a 7)" << endl << "Tes jetons sont les ";
+            if (j == 0) {
+                cout << " X" << endl;
+            }
+            else {
+                cout << " O" << endl;
+            }
+        }
+        cin >> c;
+
+        
+
+            do {              
+
+               /* while (place != true) {
+                    if (i == -1 || choix < 0 || choix > 6) {
+                        cout << "entrez un autre numero\n";
+                        cin >> choix;
+                        i = ligne;
+                    }
+                    if (tab[choix][i] != ' ')
+                        i--;
+                    else {
+                        tab[choix][i] = c;
+                        place = true;
+                    }
+                }*/
+
+                if (nombreJetons[c] > 5)
+                {
+                    cout << "Pas la place" << endl;
+                }
+            } while (nombreJetons[c] > 5);
+        
+        
+        cout << " J = a : " << j << endl;
+        cout << "cases : " << cases;
+        
+        if (c > 7) {
+            cout << endl << "Veuillez choisir un colone valide" << endl;
+            cin >> c;
+        }
+        else {
+            cout << endl << "Je place mon jeton dans la colonne " << c << endl;
+
+            system("pause");
+
+            if (j == 1) {
+                j--;
+            }
+            else {
+                j++;
+            }
+            cases++;
+        }
     }
-
-
-}
-
-void jeu::deroulement() {
-
-    cout << "Je place mon jeton dans la colonne " << std::endl;
     
 }
+
+
+
+    /*
+    while (nombreJetons[c] > 5) {
+        do {
+
+            cin >> c;
+            if (nombreJetons[c] > 6) {
+                cout << "La colone est pleine" << endl;
+            }
+        }*/
+    
+
+
+
+    /*while (c > 0 || c <= 7 && nombreJetons > 0) {
+        cout << "vous pouvez jouer ici" << endl;
+
+    }*/
+    
+
+    /*
+void jeu::deroulement(int colone) {
+   
+    int colone;
+    
+    cout << "Je place mon jeton dans la colonne " << colone << endl;
+    cin >> colone;
+    while (colone > 0 && colone <= 7) {
+        cout << "vous pouvez jouer ici" << endl;
+    }
+    
+}*/

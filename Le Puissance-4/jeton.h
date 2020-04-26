@@ -10,8 +10,6 @@ public:
 	jeton();
 	~jeton();
 
-	int nombreJetons[7];
-
 private:
-
+	int nombreJetons[6];
 };
