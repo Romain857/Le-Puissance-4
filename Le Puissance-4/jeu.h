@@ -11,26 +11,30 @@ public:
 	jeu();
 	~jeu();
 
-	void partie(/*int i, int j, char tab[7][6]*/);
+	void partie();
 	void afficherMenu();
-	//void deroulement();
-	void afficherJeu(char tab[7][6], int j);
-	/*void initialiserJeu(int a, int b, int const hauteur = 6, int const largeur = 7);*/
+	
+	void afficherJeu(int tab[7][6], int, int, int);
+	
+	//void initialiserJeu(int i, int j, int, int, int tab[7][6]);
+	void choixJeton(int, int tab[7][6], int, string tabJoueur[2], int);
+	void checkVictoire(int, int, int tab[7][6], int, int, string tabJoueur[2]);
+	void victoire(string tabJoueur[2], int);
 
 private:
+
 	int choix;         
 	int i = 0;					//colone
 	int nombreJetons[7];
-	/*int const largeur;
-	int const hauteur;*/
-	char tab[7][6];
-	int ligne;
-	int c;
-
-	int j;
 	
-	int const hauteur = 6;
-	int const largeur = 7;
+	int tab[7][6];
+	int c;
+	int g = -1;
+	int j;
+	int tours;
+	
+	int hauteur = 6;
+	int  largeur = 7;
 	
 };
 
